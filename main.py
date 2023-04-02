@@ -32,6 +32,10 @@ def hello_world():
 
     # Read the contents of the file
     file_contents = blob.download_as_string()
+    # Make sure it's a json string
+    file_contents = file_contents.decode("utf-8")
+    
+
 
     # Return the first 100 characters of the string
 

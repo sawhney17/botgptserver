@@ -1,3 +1,4 @@
+import json
 import os
 from google.cloud import storage
 from flask import Flask, request
@@ -35,6 +36,13 @@ def hello_world():
     # Read the contents of the file
     file_contents = blob.download_as_text(encoding="utf-8")
     # Make sure it's a json string
+
+    # Parse it as a JSON string
+    file_contents2 = json.loads(file_contents)
+    # Print the index_struct_id
+    print(file_contents2["index_struct_id"])
+
+
 
 
     # print the length of the string

@@ -12,19 +12,19 @@ bucket_name = os.environ.get("BUCKET_NAME", "newbucketismean")
 # CORS(app)
 # INitialize CORS 
 
-@app.after_request
-def add_cors_headers(response):
-    response.headers.add("Access-Control-Allow-Origin", "*")
-    response.headers.add("Access-Control-Allow-Headers", "Content-Type")
-    response.headers.add("Access-Control-Allow-Methods", "POST, OPTIONS")
+def set_cors_headers(response):
+    response.headers.set("Access-Control-Allow-Origin", "*")
+    response.headers.set("Access-Control-Allow-Headers", "Content-Type")
+    response.headers.set("Access-Control-Allow-Methods", "POST, OPTIONS")
     return response
+
 
 @app.route("/", methods=["POST", "OPTIONS"])
 def hello_world():
     if request.method == "OPTIONS":
         # Handle the preflight request and return an empty response with CORS headers
         response = app.make_default_options_response()
-        add_cors_headers(response)
+        set_cors_headers(response)
         return response
 
     # The rest of your original code
@@ -60,8 +60,14 @@ def hello_world():
     index = GPTSimpleVectorIndex.load_from_string(file_contents)
 
     response = index.query(messages, llm_predictor=llm_predictor)
-
-    return response.response
+    
+    flask_response = app.response_class(
+        response=json.dumps(response.response),
+        status=200,
+        mimetype='application/json'
+    )
+    set_cors_headers(flask_response)
+    return flask_response
 
 
 if __name__ == "__main__":

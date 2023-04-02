@@ -31,13 +31,13 @@ def hello_world():
     blob = bucket.blob("econTragakes.json")
 
     # Read the contents of the file
-    file_contents = blob.download_as_string()
+    file_contents = blob.download_as_text()
     # Make sure it's a json string
     file_contents = file_contents.decode("utf-8")
 
     # print the length of the string
     print(len(file_contents))
-    
+
     # Return the first 100 characters of the string
 
     # return "Hello {}! Your file contents were: {}".format(name, file_contents)

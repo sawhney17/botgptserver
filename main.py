@@ -13,6 +13,13 @@ bucket_name = os.environ.get("BUCKET_NAME", "newbucketismean")
 # INitialize CORS 
 CORS(app, resources={r"/*": {"origins": "*"}})
 
+@app.after_request
+def add_cors_headers(response):
+    response.headers.add("Access-Control-Allow-Origin", "*")
+    response.headers.add("Access-Control-Allow-Headers", "Content-Type")
+    response.headers.add("Access-Control-Allow-Methods", "POST, OPTIONS")
+    return response
+
 
 @app.route("/", methods=["POST"])
 def hello_world():

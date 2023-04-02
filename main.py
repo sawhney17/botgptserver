@@ -2,14 +2,21 @@ import os
 from google.cloud import storage
 
 from flask import Flask, request
+from llama_index import GPTSimpleVectorIndex, Document, SimpleDirectoryReader, LLMPredictor, QuestionAnswerPrompt, RefinePrompt
+from langchain.chat_models import ChatOpenAI
+from openai import ChatCompletion, api_key
 
 app = Flask(__name__)
 bucket_name = os.environ.get("BUCKET_NAME", "newbucketismean")
 
+
 @app.route("/", methods=["POST"])
 def hello_world():
     name = os.environ.get("NAME", "World")
-    
+    # get the request body and the messages from the request body
+    request_body = request.get_json()
+    messages = request_body["messages"]
+
     # Create a Cloud Storage client object
     client = storage.Client()
     bucket = client.bucket(bucket_name)
@@ -21,9 +28,17 @@ def hello_world():
     file_contents = blob.download_as_string()
 
     # Return the first 100 characters of the string
-    
+
     # return "Hello {}! Your file contents were: {}".format(name, file_contents)
-    return file_contents[:100]
+    llm_predictor = LLMPredictor(llm=ChatOpenAI(
+        temperature=0, model_name="gpt-3.5-turbo"))
+    
+    index = GPTSimpleVectorIndex.load_from_string(file_contents)
+
+    response = index.query(messages, llm_predictor=llm_predictor)
+
+    return response
+
 
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0", port=int(os.environ.get("PORT", 8080)))

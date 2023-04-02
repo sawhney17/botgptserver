@@ -20,7 +20,7 @@ def hello_world():
     # Read the contents of the file
     file_contents = blob.download_as_string()
 
-# Return the first 100 characters of the string
+    # Return the first 100 characters of the string
     
     # return "Hello {}! Your file contents were: {}".format(name, file_contents)
     return file_contents[:100]

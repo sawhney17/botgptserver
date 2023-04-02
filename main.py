@@ -12,11 +12,10 @@ bucket_name = os.environ.get("BUCKET_NAME", "newbucketismean")
 @app.route("/", methods=["POST"])
 def hello_world():
     name = os.environ.get("NAME", "World")
-    # curl -X POST -H "Content-Type: application/json" -d '{"messages": "What is 
-# Supply"}' https://botgptserver-2pzthp6v5a-uc.a.run.app
+    # curl -X POST -H "Content-Type: application/json" -d '{"messages": "What is
+    # Supply"}' https://botgptserver-2pzthp6v5a-uc.a.run.app
 
     messages = request.json["messages"]
-    
 
 
     # Create a Cloud Storage client object

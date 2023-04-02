@@ -17,6 +17,9 @@ def hello_world():
 
     messages = request.json["messages"]
 
+    print(messages)
+    print("Error may be here")
+
 
     # Create a Cloud Storage client object
     client = storage.Client()

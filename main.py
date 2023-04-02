@@ -16,7 +16,9 @@ def hello_world():
     # Supply"}' https://botgptserver-2pzthp6v5a-uc.a.run.app
 
     messages = request.json["messages"]
+    os.environ['OPENAI_API_KEY'] = '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'
 
+    api_key = "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"
     print(messages)
     print("Error may be here")
 
@@ -34,8 +36,7 @@ def hello_world():
     # Return the first 100 characters of the string
 
     # return "Hello {}! Your file contents were: {}".format(name, file_contents)
-    llm_predictor = LLMPredictor(llm=ChatOpenAI(
-        temperature=0, model_name="gpt-3.5-turbo"))
+    llm_predictor = LLMPredictor(llm=ChatOpenAI(temperature=0, model_name="gpt-3.5-turbo"))
 
     index = GPTSimpleVectorIndex.load_from_string(file_contents)
 

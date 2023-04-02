@@ -1,6 +1,5 @@
 import os
 from google.cloud import storage
-
 from flask import Flask, request
 from llama_index import GPTSimpleVectorIndex, Document, SimpleDirectoryReader, LLMPredictor, QuestionAnswerPrompt, RefinePrompt
 from langchain.chat_models import ChatOpenAI
@@ -32,7 +31,7 @@ def hello_world():
     # return "Hello {}! Your file contents were: {}".format(name, file_contents)
     llm_predictor = LLMPredictor(llm=ChatOpenAI(
         temperature=0, model_name="gpt-3.5-turbo"))
-    
+
     index = GPTSimpleVectorIndex.load_from_string(file_contents)
 
     response = index.query(messages, llm_predictor=llm_predictor)

@@ -58,7 +58,7 @@ def hello_world():
     response = index.query(messages, llm_predictor=llm_predictor)
 
     print(response.get_formatted_sources())
-    return response.get_formatted_sources()
+    return response.response()
 
 
 if __name__ == "__main__":

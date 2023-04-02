@@ -9,7 +9,10 @@ from flask_cors import CORS
 
 app = Flask(__name__)
 bucket_name = os.environ.get("BUCKET_NAME", "newbucketismean")
-CORS(app)
+# CORS(app)
+# INitialize CORS 
+CORS(app, resources={r"/*": {"origins": "*"}})
+
 
 @app.route("/", methods=["POST"])
 def hello_world():

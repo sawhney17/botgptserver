@@ -40,7 +40,7 @@ def hello_world():
     # Parse it as a JSON string
     file_contents2 = json.loads(file_contents)
     # Print the index_struct_id
-    print(file_contents2["index_struct_id"])
+    print(file_contents2["vector_store"]["simple_vector_store_data_dict"]["text_id_to_doc_id"]["63bd4431-d6a7-4926-9267-b79a113947d0"])
 
 
 

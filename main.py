@@ -30,10 +30,10 @@ def hello_world():
     # Get a blob object representing the file you want to read
     blob = bucket.blob("econTragakes.json")
 
+    print(blob.content_type)
+    print(blob.content_encoding)
     # Read the contents of the file
-    file_contents = blob.download_to_file(
-        open("econTragakes.json", "wb")
-    )
+    file_contents = blob.download_as_text(encoding="utf-8")
     # Make sure it's a json string
 
 

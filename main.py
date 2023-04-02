@@ -5,10 +5,11 @@ from flask import Flask, request
 from llama_index import GPTSimpleVectorIndex, Document, SimpleDirectoryReader, LLMPredictor, QuestionAnswerPrompt, RefinePrompt
 from langchain.chat_models import ChatOpenAI
 from openai import ChatCompletion, api_key
+from flask_cors import CORS
 
 app = Flask(__name__)
 bucket_name = os.environ.get("BUCKET_NAME", "newbucketismean")
-
+CORS(app)
 
 @app.route("/", methods=["POST"])
 def hello_world():

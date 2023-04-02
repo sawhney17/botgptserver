@@ -5,13 +5,12 @@ from flask import Flask, request
 from llama_index import GPTSimpleVectorIndex, Document, SimpleDirectoryReader, LLMPredictor, QuestionAnswerPrompt, RefinePrompt
 from langchain.chat_models import ChatOpenAI
 from openai import ChatCompletion, api_key
-from flask_cors import CORS
+
 
 app = Flask(__name__)
 bucket_name = os.environ.get("BUCKET_NAME", "newbucketismean")
 # CORS(app)
 # INitialize CORS 
-CORS(app, resources={r"/*": {"origins": "*"}})
 
 @app.after_request
 def add_cors_headers(response):
@@ -20,9 +19,16 @@ def add_cors_headers(response):
     response.headers.add("Access-Control-Allow-Methods", "POST, OPTIONS")
     return response
 
-
-@app.route("/", methods=["POST"])
+@app.route("/", methods=["POST", "OPTIONS"])
 def hello_world():
+    if request.method == "OPTIONS":
+        # Handle the preflight request and return an empty response with CORS headers
+        response = app.make_default_options_response()
+        add_cors_headers(response)
+        return response
+
+    # The rest of your original code
+
     name = os.environ.get("NAME", "World")
     # curl -X POST -H "Content-Type: application/json" -d '{"messages": "What is
     # Supply"}' https://botgptserver-2pzthp6v5a-uc.a.run.app

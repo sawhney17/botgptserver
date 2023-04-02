@@ -42,7 +42,7 @@ def hello_world():
 
     response = index.query(messages, llm_predictor=llm_predictor)
 
-    return response
+    return response.get_formatted_sources()
 
 
 if __name__ == "__main__":

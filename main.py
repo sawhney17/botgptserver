@@ -31,19 +31,20 @@ def hello_world():
     blob = bucket.blob("econTragakes.json")
 
     # Read the contents of the file
-    file_contents = blob.download_as_text()
+    file_contents = blob.download_to_file(
+        "econTragakes.json"
+    )
     # Make sure it's a json string
 
 
     # print the length of the string
-    print(len(file_contents))
 
     # Return the first 100 characters of the string
 
     # return "Hello {}! Your file contents were: {}".format(name, file_contents)
     llm_predictor = LLMPredictor(llm=ChatOpenAI(temperature=0, model_name="gpt-3.5-turbo"))
 
-    index = GPTSimpleVectorIndex.load_from_string(file_contents)
+    index = GPTSimpleVectorIndex.load_from_disk("econTragakes.json")
 
     response = index.query(messages, llm_predictor=llm_predictor)
 

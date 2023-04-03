@@ -59,12 +59,12 @@ def hello_world():
     # max_chunk_overlap = 20 # overlap for each token fragment
     # prompt_helper = PromptHelper(max_input_size=max_input_size, num_output=num_output, max_chunk_overlap=max_chunk_overlap )
     # index = GPTSimpleVectorIndex.load_from_string(file_contents, prompt_helper=prompt_helper, llm_predictor=llm_predictor)
-    max_input_size = 2000
-    num_output = 256
+    # max_input_size = 2000
+    # num_output = 256
     # chunk_size_limit = 1000 # token window size per document
     # embedding_limit = 1000 # max number of embeddings to use per document
-    max_chunk_overlap = 20 # overlap for each token fragment
-    prompt_helper = PromptHelper(max_input_size=max_input_size, num_output=num_output, max_chunk_overlap=max_chunk_overlap )
+    # max_chunk_overlap = 20 # overlap for each token fragment
+    # prompt_helper = PromptHelper(max_input_size=max_input_size, num_output=num_output, max_chunk_overlap=max_chunk_overlap )
     # service_context = ServiceContext.from_defaults(llm_predictor=llm_predictor, prompt_helper=prompt_helper)
     # index = GPTSimpleVectorIndex(documents, prompt_helper=prompt_helper, llm_predictor=llm_predictor)
 
@@ -72,7 +72,7 @@ def hello_world():
     # index.save_to_disk("advancedComputerscience.json", prompt_helper=prompt_helper, llm_predictor=llm_predictor)
     # index = GPTSimpleVectorIndex.load_from_disk("advancedComputerscience.json", prompt_helper=prompt_helper, llm_predictor=llm_predictor)
     # Open from string
-    index = GPTSimpleVectorIndex.load_from_string(file_contents, prompt_helper=prompt_helper, llm_predictor=llm_predictor)
+    index = GPTSimpleVectorIndex.load_from_string(file_contents)
 
     response = index.query(messages)
     

@@ -34,6 +34,7 @@ def hello_world():
     # Supply"}' https://botgptserver-2pzthp6v5a-uc.a.run.app
 
     messages = request.json["messages"]
+    book = request.json["book"]
     os.environ['OPENAI_API_KEY'] = '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'
 
     api_key = "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"
@@ -46,7 +47,7 @@ def hello_world():
     bucket = client.bucket(bucket_name)
 
     # Get a blob object representing the file you want to read
-    blob = bucket.blob("econTragakes.json")
+    blob = bucket.blob(book)
 
     print(blob.content_type)
     print(blob.content_encoding)

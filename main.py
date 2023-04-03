@@ -2,7 +2,7 @@ import json
 import os
 from google.cloud import storage
 from flask import Flask, request
-from llama_index import GPTSimpleVectorIndex, Document, SimpleDirectoryReader, LLMPredictor, QuestionAnswerPrompt, RefinePrompt, PromptHelper
+from llama_index import GPTSimpleVectorIndex,  LLMPredictor, PromptHelper
 from langchain.chat_models import ChatOpenAI
 from openai import ChatCompletion, api_key
 
@@ -52,15 +52,29 @@ def hello_world():
     # return "Hello {}! Your file contents were: {}".format(name, file_contents)
     llm_predictor = LLMPredictor(llm=ChatOpenAI(temperature=0, model_name="gpt-3.5-turbo"))
 
+    # max_input_size = 2000
+    # num_output = 256
+    # chunk_size_limit = 1000 # token window size per document
+    # embedding_limit = 1000 # max number of embeddings to use per document
+    # max_chunk_overlap = 20 # overlap for each token fragment
+    # prompt_helper = PromptHelper(max_input_size=max_input_size, num_output=num_output, max_chunk_overlap=max_chunk_overlap )
+    # index = GPTSimpleVectorIndex.load_from_string(file_contents, prompt_helper=prompt_helper, llm_predictor=llm_predictor)
     max_input_size = 2000
     num_output = 256
     # chunk_size_limit = 1000 # token window size per document
     # embedding_limit = 1000 # max number of embeddings to use per document
     max_chunk_overlap = 20 # overlap for each token fragment
     prompt_helper = PromptHelper(max_input_size=max_input_size, num_output=num_output, max_chunk_overlap=max_chunk_overlap )
+    # service_context = ServiceContext.from_defaults(llm_predictor=llm_predictor, prompt_helper=prompt_helper)
+    # index = GPTSimpleVectorIndex(documents, prompt_helper=prompt_helper, llm_predictor=llm_predictor)
+
+    # Save index to disk
+    # index.save_to_disk("advancedComputerscience.json", prompt_helper=prompt_helper, llm_predictor=llm_predictor)
+    # index = GPTSimpleVectorIndex.load_from_disk("advancedComputerscience.json", prompt_helper=prompt_helper, llm_predictor=llm_predictor)
+    # Open from string
     index = GPTSimpleVectorIndex.load_from_string(file_contents, prompt_helper=prompt_helper, llm_predictor=llm_predictor)
 
-    response = index.query(messages, llm_predictor=llm_predictor)
+    response = index.query(messages)
     
     flask_response = app.response_class(
         response=json.dumps(response.response),

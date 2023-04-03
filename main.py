@@ -58,7 +58,7 @@ def hello_world():
     # embedding_limit = 1000 # max number of embeddings to use per document
     max_chunk_overlap = 20 # overlap for each token fragment
     prompt_helper = PromptHelper(max_input_size=max_input_size, num_output=num_output, max_chunk_overlap=max_chunk_overlap )
-    index = GPTSimpleVectorIndex.load_from_string(file_contents)
+    index = GPTSimpleVectorIndex.load_from_string(file_contents, prompt_helper=prompt_helper, llm_predictor=llm_predictor)
 
     response = index.query(messages, llm_predictor=llm_predictor)
     

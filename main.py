@@ -35,7 +35,7 @@ def hello_world():
 
     messages = request.json["messages"]
     book = request.json["book"]
-    os.environ['OPENAI_API_KEY'] = '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'
+    os.environ['OPENAI_API_KEY'] = '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'
     email = request.json["email"]
     # Create a Cloud Storage client object
     client = storage.Client()

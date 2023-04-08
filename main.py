@@ -1,6 +1,6 @@
 import json
 import os
-from google.cloud import storage
+# from google.cloud import storage
 from flask import Flask, request
 from llama_index import GPTSimpleVectorIndex,  LLMPredictor, PromptHelper
 from langchain.chat_models import ChatOpenAI
@@ -8,7 +8,7 @@ from openai import ChatCompletion, api_key
 
 
 app = Flask(__name__)
-bucket_name = os.environ.get("BUCKET_NAME", "newbucketismean")
+# bucket_name = os.environ.get("BUCKET_NAME", "newbucketismean")
 # CORS(app)
 # INitialize CORS 
 
@@ -36,43 +36,21 @@ def hello_world():
     messages = request.json["messages"]
     book = request.json["book"]
     os.environ['OPENAI_API_KEY'] = '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'
-    email = request.json["email"]
+    # email = request.json["email"]
+    # file_contents=Json. '/ {book}'  ../books/{book}
     # Create a Cloud Storage client object
-    client = storage.Client()
-    bucket = client.bucket(bucket_name)
+    # client = storage.Client()
+    # bucket = client.bucket(bucket_name)
 
-    # Get a blob object representing the file you want to read
-    blob = bucket.blob(book)
-    print(messages)
-    print(email)
-    # Read the contents of the file
-    file_contents = blob.download_as_text(encoding="utf-8")
+    # # Get a blob object representing the file you want to read
+    # blob = bucket.blob(book)
+    # print(messages)
+    # print(email)
+    # # Read the contents of the file
+    # file_contents = blob.download_as_text(encoding="utf-8")
     # Make sure it's a json string
 
-    # return "Hello {}! Your file contents were: {}".format(name, file_contents)
-    llm_predictor = LLMPredictor(llm=ChatOpenAI(temperature=0, model_name="gpt-3.5-turbo"))
-
-    # max_input_size = 2000
-    # num_output = 256
-    # chunk_size_limit = 1000 # token window size per document
-    # embedding_limit = 1000 # max number of embeddings to use per document
-    # max_chunk_overlap = 20 # overlap for each token fragment
-    # prompt_helper = PromptHelper(max_input_size=max_input_size, num_output=num_output, max_chunk_overlap=max_chunk_overlap )
-    # index = GPTSimpleVectorIndex.load_from_string(file_contents, prompt_helper=prompt_helper, llm_predictor=llm_predictor)
-    # max_input_size = 2000
-    # num_output = 256
-    # chunk_size_limit = 1000 # token window size per document
-    # embedding_limit = 1000 # max number of embeddings to use per document
-    # max_chunk_overlap = 20 # overlap for each token fragment
-    # prompt_helper = PromptHelper(max_input_size=max_input_size, num_output=num_output, max_chunk_overlap=max_chunk_overlap )
-    # service_context = ServiceContext.from_defaults(llm_predictor=llm_predictor, prompt_helper=prompt_helper)
-    # index = GPTSimpleVectorIndex(documents, prompt_helper=prompt_helper, llm_predictor=llm_predictor)
-
-    # Save index to disk
-    # index.save_to_disk("advancedComputerscience.json", prompt_helper=prompt_helper, llm_predictor=llm_predictor)
-    # index = GPTSimpleVectorIndex.load_from_disk("advancedComputerscience.json", prompt_helper=prompt_helper, llm_predictor=llm_predictor)
-    # Open from string
-    index = GPTSimpleVectorIndex.load_from_string(file_contents)
+    index = GPTSimpleVectorIndex.load_from_disk(f"../books/{book}")
 
     response = index.query(messages)
     

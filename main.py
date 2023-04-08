@@ -50,7 +50,7 @@ def hello_world():
     # file_contents = blob.download_as_text(encoding="utf-8")
     # Make sure it's a json string
 
-    index = GPTSimpleVectorIndex.load_from_disk(f"../books/{book}")
+    index = GPTSimpleVectorIndex.load_from_disk(f"./books/{book}")
 
     response = index.query(messages)
     

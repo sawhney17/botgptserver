@@ -36,7 +36,7 @@ def hello_world():
     messages = request.json["messages"]
     book = request.json["book"]
     os.environ['OPENAI_API_KEY'] = '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'
-    # email = request.json["email"]
+    email = request.json["email"]
     # file_contents=Json. '/ {book}'  ../books/{book}
     # Create a Cloud Storage client object
     # client = storage.Client()
@@ -44,8 +44,8 @@ def hello_world():
 
     # # Get a blob object representing the file you want to read
     # blob = bucket.blob(book)
-    # print(messages)
-    # print(email)
+    print(messages)
+    print(email)
     # # Read the contents of the file
     # file_contents = blob.download_as_text(encoding="utf-8")
     # Make sure it's a json string
